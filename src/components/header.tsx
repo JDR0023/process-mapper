@@ -3,11 +3,10 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
-import { Map, Upload, LayoutDashboard } from 'lucide-react';
+import { Map, LayoutDashboard } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/ingestion', label: 'Template Ingestion', icon: Upload },
   { href: '/dashboard', label: 'Process Maps', icon: Map },
 ];
 

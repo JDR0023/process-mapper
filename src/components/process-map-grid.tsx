@@ -86,6 +86,18 @@ export function ProcessMapGrid({ rows, onRowsChange, readOnly }: Props) {
     onRowsChange(rows.filter((_, i) => i !== index));
   }
 
+  function insertRowAfter(index: number) {
+    const newRow: GridRow = {
+      processStepId: String(rows.length + 1),
+      processStepDescription: '',
+      nextStepId: '',
+      shapeType: 'Process',
+      function: '',
+    };
+    const next = [...rows.slice(0, index + 1), newRow, ...rows.slice(index + 1)];
+    onRowsChange(next);
+  }
+
   return (
     <div className="space-y-3">
       <div className="overflow-x-auto rounded-xl border border-gray-200">
@@ -97,7 +109,7 @@ export function ProcessMapGrid({ rows, onRowsChange, readOnly }: Props) {
               <Th className="w-28">Next Step ID</Th>
               <Th className="w-52">Shape Type</Th>
               <Th className="min-w-36">Swimlane (Function)</Th>
-              {!readOnly && <Th className="w-12" />}
+              {!readOnly && <Th className="w-16" />}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
@@ -150,14 +162,23 @@ export function ProcessMapGrid({ rows, onRowsChange, readOnly }: Props) {
                     />
                   </td>
                   {!readOnly && (
-                    <td className="px-3 py-2">
-                      <button
-                        onClick={() => deleteRow(i)}
-                        className="rounded p-1 text-gray-400 hover:bg-red-50 hover:text-red-500"
-                        title="Delete row"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
+                    <td className="whitespace-nowrap px-2 py-2">
+                      <div className="flex items-center gap-0.5">
+                        <button
+                          onClick={() => insertRowAfter(i)}
+                          className="rounded p-1 text-gray-300 opacity-40 hover:opacity-100 hover:text-gray-600 transition-all"
+                          title="Insert row after"
+                        >
+                          <Plus className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => deleteRow(i)}
+                          className="rounded p-1 text-gray-400 hover:bg-red-50 hover:text-red-500"
+                          title="Delete row"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
                     </td>
                   )}
                 </tr>

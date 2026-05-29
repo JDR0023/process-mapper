@@ -114,30 +114,35 @@ export default function DashboardPage() {
           {processMaps.map((pm) => (
             <Card key={pm.id}>
               <CardContent className="flex items-center gap-4 py-4">
-                <div className="rounded-lg bg-primary-50 p-2">
-                  <Map className="h-5 w-5 text-primary-600" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="truncate text-sm font-medium text-gray-900">
-                    {pm.title}
-                  </p>
-                  {pm.description && (
-                    <p className="truncate text-xs text-gray-500">
-                      {pm.description}
-                    </p>
-                  )}
-                  <div className="mt-1 flex items-center gap-1 text-xs text-gray-400">
-                    <Clock className="h-3 w-3" />
-                    {new Date(pm.created_at).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
+                <Link
+                  href={`/?id=${pm.id}`}
+                  className="flex flex-1 items-center gap-4 min-w-0"
+                >
+                  <div className="rounded-lg bg-primary-50 p-2">
+                    <Map className="h-5 w-5 text-primary-600" />
                   </div>
-                </div>
-                <div className="flex items-center gap-1">
+                  <div className="flex-1 min-w-0">
+                    <p className="truncate text-sm font-medium text-gray-900 hover:text-primary-600 transition-colors">
+                      {pm.title}
+                    </p>
+                    {pm.description && (
+                      <p className="truncate text-xs text-gray-500">
+                        {pm.description}
+                      </p>
+                    )}
+                    <div className="mt-1 flex items-center gap-1 text-xs text-gray-400">
+                      <Clock className="h-3 w-3" />
+                      {new Date(pm.created_at).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </div>
+                  </div>
+                </Link>
+                <div className="flex items-center gap-1 shrink-0">
                   <button
                     onClick={() => handleDelete(pm.id)}
                     className="rounded p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500"
